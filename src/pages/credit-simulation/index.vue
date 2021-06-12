@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import Stepper from "src/components/credit-simulation/stepper.vue";
+import Stepper from "src/components/stepper.vue";
 
 export default {
   name: "CreditSimulation",
