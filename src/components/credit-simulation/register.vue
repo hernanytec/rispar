@@ -1,9 +1,11 @@
 <template>
-  <q-page> TODO </q-page>
+  <q-form> </q-form>
 </template>
 
 <script>
 export default {
-  name: "PageIndex"
+  name: "Register"
 };
 </script>
+
+<style></style>
