@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import StepItem from "./step-item.vue";
+import StepItem from "./StepItem.vue";
 
 export default {
   name: "Stepper",
