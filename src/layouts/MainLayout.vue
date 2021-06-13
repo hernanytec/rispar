@@ -39,6 +39,6 @@ body.screen--xl {
 
 .layout {
   background-color: $bg-base-color;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 </style>

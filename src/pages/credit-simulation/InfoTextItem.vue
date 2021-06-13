@@ -1,5 +1,5 @@
 <template>
-  <div class="q-my-sm fontsize-12">({{ index }}) {{ text }}</div>
+  <div class="q-mb-lg fontsize-12">({{ index }}) {{ text }}</div>
 </template>
 
 <script>

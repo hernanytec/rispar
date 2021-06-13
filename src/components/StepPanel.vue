@@ -13,10 +13,7 @@
       <div class="gt-sm fontsize-8">{{ subtitle }}</div>
     </div>
 
-    <div
-      class="bg-white q-mt-lg"
-      :class="{ 'q-pa-sm': $q.screen.gt.lg, 'q-ml-md': $q.screen.gt.sm }"
-    >
+    <div class="bg-white q-mt-lg" :class="{ 'q-ml-md': $q.screen.gt.sm }">
       <slot />
     </div>
   </div>

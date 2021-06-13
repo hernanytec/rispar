@@ -1,66 +1,76 @@
 <template>
-  <div class="column" :class="{ 'q-px-xl': $q.screen.gt.md }">
-    <ResultItem
-      title="você recebe"
-      :value="simulation.net_value | currency(...defaultCurrencyProps)"
-      description="Dinheiro que cai na sua conta em até 2 dias úteis."
-    />
+  <div>
+    <div class="column" :class="{ 'q-px-xl': $q.screen.gt.md }">
+      <ResultItem
+        title="você recebe"
+        :value="simulation.net_value | currency(...defaultCurrencyProps)"
+        description="Dinheiro que cai na sua conta em até 2 dias úteis."
+      />
 
-    <ResultItem
-      :title="`Pagando em ${simulation.term} vezes de`"
-      :value="simulation.installment_value | currency(...defaultCurrencyProps)"
-      value-indicator="(1)"
-      description="As faturas serão enviadas para o seu e-mail."
-    />
+      <ResultItem
+        :title="`Pagando em ${simulation.term} vezes de`"
+        :value="
+          simulation.installment_value | currency(...defaultCurrencyProps)
+        "
+        value-indicator="(1)"
+        description="As faturas serão enviadas para o seu e-mail."
+      />
 
-    <ResultItem
-      title="Deixando como garantia"
-      :value="
-        simulation.collateral | toBitcoin | currency(...bitcoinCurrencyProps)
-      "
-      value-indicator="(2)"
-      description="Sua criptomoeda estará segura em carteiras BitCo."
-    />
+      <ResultItem
+        title="Deixando como garantia"
+        :value="
+          simulation.collateral | toBitcoin | currency(...bitcoinCurrencyProps)
+        "
+        value-indicator="(2)"
+        description="Sua criptomoeda estará segura em carteiras BitCo."
+      />
 
-    <ResultItem
-      title="TX de juros"
-      :value="`${simulation.interest_rate}% a.m`"
-      value-indicator="(3)"
+      <ResultItem
+        title="TX de juros"
+        :value="`${simulation.interest_rate}% a.m`"
+        value-indicator="(3)"
+      >
+        <div class="column">
+          <span class="q-mb-sm fontsize-10">LOAN TO VALUE (LTV)</span>
+          <span class="fontsize-16 text-bold">{{ `${simulation.ltv}%` }}</span>
+        </div>
+      </ResultItem>
+
+      <ResultItem
+        title="TX plataforma"
+        :value="`${simulation.interest_rate}% a.m`"
+      >
+        <div class="column justify-center">
+          <span class="q-mb-xs fontsize-10">IOF</span>
+          <span class="fontsize-16 text-bold">
+            ZERO
+            <sup class="fontsize-8 text-bold text-overline">(4)</sup>
+          </span>
+        </div>
+      </ResultItem>
+
+      <q-btn
+        class="self-center q-my-lg q-px-xl"
+        color="secondary"
+        unelevated
+        label="Nova simulação"
+        @click="onFinish"
+      />
+    </div>
+
+    <div
+      :class="{
+        'q-px-md': $q.screen.lt.md,
+        'bg-base-gray q-pt-lg': $q.screen.gt.sm,
+      }"
     >
-      <div class="column">
-        <span class="q-mb-sm fontsize-10">LOAN TO VALUE (LTV)</span>
-        <span class="fontsize-16 text-bold">{{ `${simulation.ltv}%` }}</span>
-      </div>
-    </ResultItem>
-
-    <ResultItem
-      title="TX plataforma"
-      :value="`${simulation.interest_rate}% a.m`"
-    >
-      <div class="column justify-center">
-        <span class="q-mb-xs fontsize-10">IOF</span>
-        <span class="fontsize-16 text-bold">
-          ZERO
-          <sup class="fontsize-8 text-bold text-overline">(4)</sup>
-        </span>
-      </div>
-    </ResultItem>
-
-    <q-btn
-      class="self-center q-my-xl q-px-xl"
-      color="secondary"
-      unelevated
-      label="Nova simulação"
-      @click="onFinish"
-    />
-
-    <InfoTextItem
-      :class="{ 'q-px-md': $q.screen.lt.md }"
-      v-for="info in infoTexts"
-      :key="info.key"
-      :index="info.key"
-      :text="info.text"
-    />
+      <InfoTextItem
+        v-for="info in infoTexts"
+        :key="info.key"
+        :index="info.key"
+        :text="info.text"
+      />
+    </div>
   </div>
 </template>
 
@@ -133,3 +143,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.bg-base-gray {
+  background-color: $bg-base-color;
+}
+</style>
