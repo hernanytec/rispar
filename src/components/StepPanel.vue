@@ -7,7 +7,10 @@
       <div class="fontsize-20 text-secondary text-bold lt-md q-mr-md">
         {{ `${currentStep}/${totalSteps}` }}
       </div>
-      <div class="fontsize-20" :class="{ 'text-uppercase': $q.screen.lt.md }">
+      <div
+        class="fontsize-20"
+        :class="{ 'text-uppercase text-bold': $q.screen.lt.md }"
+      >
         {{ title }}
       </div>
       <div class="gt-sm fontsize-8">{{ subtitle }}</div>

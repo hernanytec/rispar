@@ -23,7 +23,8 @@ export default {
 <style lang="scss" scoped>
 .logo {
   height: auto;
-  max-width: 220px;
+  width: 200px;
+  max-width: 50%;
 }
 
 .hello-text {
