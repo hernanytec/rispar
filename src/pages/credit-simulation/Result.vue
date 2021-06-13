@@ -9,6 +9,7 @@
     <ResultItem
       :title="`Pagando em ${simulation.term} vezes de`"
       :value="simulation.installment_value | currency(...defaultCurrencyProps)"
+      value-indicator="(1)"
       description="As faturas serão enviadas para o seu e-mail."
     />
 
@@ -17,10 +18,15 @@
       :value="
         simulation.collateral | toBitcoin | currency(...bitcoinCurrencyProps)
       "
+      value-indicator="(2)"
       description="Sua criptomoeda estará segura em carteiras BitCo."
     />
 
-    <ResultItem title="TX de juros" :value="`${simulation.interest_rate}% a.m`">
+    <ResultItem
+      title="TX de juros"
+      :value="`${simulation.interest_rate}% a.m`"
+      value-indicator="(3)"
+    >
       <div class="column">
         <span class="q-mb-sm fontsize-10">LOAN TO VALUE (LTV)</span>
         <span class="fontsize-16 text-bold">{{ `${simulation.ltv}%` }}</span>
@@ -33,7 +39,10 @@
     >
       <div class="column justify-center">
         <span class="q-mb-sm fontsize-10">IOF</span>
-        <span class="fontsize-16 text-bold">ZERO</span>
+        <span class="fontsize-16 text-bold">
+          ZERO
+          <sup class="fontsize-8 text-bold text-overline">(4)</sup>
+        </span>
       </div>
     </ResultItem>
 

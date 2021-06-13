@@ -1,12 +1,12 @@
 <template>
-  <q-page>
-    <div class="row window-height">
+  <q-page :style-fn="myPageStyle">
+    <div class="row full-height">
       <div class="gt-sm default-spacing stepper-container col-4">
         <Stepper v-model="step" :steps="steps" />
       </div>
 
       <StepPanel
-        class="col-8"
+        class="col-8 full-height"
         :class="{ 'col-12': $q.screen.lt.md }"
         :title="currentStep.title"
         :subtitle="currentStep.subtitle"
@@ -91,6 +91,12 @@ export default {
   },
 
   methods: {
+    myPageStyle(offset) {
+      return {
+        height: offset ? `calc(100vh - ${offset}px - 2rem)` : '100vh',
+      };
+    },
+
     onNext() {
       if (this.step === this.steps.length) return;
 
@@ -124,6 +130,6 @@ export default {
 
 .stepper-container {
   background-color: white;
-  height: 70%;
+  height: 90%;
 }
 </style>

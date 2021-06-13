@@ -1,7 +1,7 @@
 <template>
   <q-layout
     view="hhh lpr lFf"
-    class="bg"
+    class="layout"
     :class="{ 'default-padding': $q.screen.gt.sm }"
   >
     <q-header
@@ -33,11 +33,12 @@ export default {
 
 body.screen--xl {
   .default-padding {
-    padding: 1rem 5rem;
+    padding: 0 5rem;
   }
 }
 
-.bg {
+.layout {
   background-color: $bg-base-color;
+  overflow-y: scroll;
 }
 </style>

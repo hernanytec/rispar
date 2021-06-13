@@ -5,7 +5,13 @@
   >
     <div class="column col-7">
       <span class="q-mb-sm text-uppercase fontsize-10">{{ title }}</span>
-      <span class="fontsize-16 text-bold">{{ value }}</span>
+      <span class="fontsize-16 text-bold">
+        {{ value }}
+
+        <sup class="fontsize-8 text-bold text-overline">
+          {{ valueIndicator }}
+        </sup>
+      </span>
     </div>
 
     <div class="col-5">
@@ -29,6 +35,10 @@ export default {
     value: {
       type: String,
       required: true,
+      default: '',
+    },
+    valueIndicator: {
+      type: String,
       default: '',
     },
     description: {
