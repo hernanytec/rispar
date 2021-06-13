@@ -1,136 +1,151 @@
 <template>
-  <div>
-    <div class="text-h5">Pedido</div>
-    <div class="text-body2">Informe os seus dados iniciais</div>
+  <div class="form-container">
+    <div v-if="isLoading" class="flex justify-center">
+      <Loader label="CALCULANDO..." />
+    </div>
 
-    <div class="form-container">
-      <q-form class="column">
-        <div class="row items-center q-mb-lg">
-          <div class="col-3 text-right q-pr-md q-mb-md">VALOR DO PEDIDO</div>
-          <q-input
-            v-model="form.name"
-            class="col-9"
-            bottom-slots
-            outlined
-            dense
-          >
-            <template v-slot:hint>
-              <div class="text-right">
-                Valores entre R$ 500 e R$ 300.000
-              </div>
-            </template>
-          </q-input>
-        </div>
+    <q-form v-else class="column">
+      <FormItem label="VALOR DO PEDIDO" label-classes="q-mb-lg">
+        <q-input
+          v-model.number="data.amount"
+          type="number"
+          bottom-slots
+          outlined
+          dense
+          :error="$v.data.amount.$error"
+          error-message="Deve ter um valor entre 500 e 300.000"
+          @blur="$v.data.amount.$touch()"
+        >
+          <template v-slot:hint>
+            <div class="text-right">Valores entre R$ 500 e R$ 300.000</div>
+          </template>
+        </q-input>
+      </FormItem>
 
-        <div class="row items-center">
-          <div class="col-3 text-right q-pr-md">PARCELAS</div>
+      <FormItem label="PARCELAS" label-classes="q-mb-xl">
+        <Slider
+          v-model="data.term"
+          :min="INSTALLMENT_MIN"
+          :max="INSTALLMENT_MAX"
+          :min-label="`${INSTALLMENT_MIN} meses`"
+          :max-label="`${INSTALLMENT_MAX} meses`"
+          :selected-label="selectedTerm"
+        />
+      </FormItem>
 
-          <div class="col-9">
-            <q-slider
-              v-model="form.installment"
-              snap
-              :min="INSTALLMENT_MIN"
-              :max="INSTALLMENT_MAX"
-            />
-
-            <div class="column q-mb-md">
-              <div class="flex justify-between">
-                <div>{{ INSTALLMENT_MIN }} meses</div>
-                <div>{{ INSTALLMENT_MAX }} meses</div>
-              </div>
-
-              <div class="text-center">
-                Selecionado:
-                <span class="text-bold">{{ selectedInstallments }} </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row items-center q-mb-md">
-          <div class="col-3 text-right q-pr-md">LOAN TO VALUE</div>
-
-          <div class="flex justify-between col-9">
-            <q-btn
-              v-for="(option, index) in loanOptions"
-              :key="index"
-              :label="option.label"
-              outline
-              color="primary"
-              @click="setLoan(option)"
-            />
-          </div>
-        </div>
-
-        <div class="row items-center">
-          <div class="col-3 text-right q-pr-md">VENCIMENTO</div>
-          <q-select
-            v-model="form.dueDate"
-            class="col-9"
-            outlined
-            dense
-            :options="dueDateOptions"
+      <FormItem label="LOAN TO VALUE">
+        <div class="flex justify-between">
+          <q-btn
+            v-for="(option, index) in ltvOptions"
+            :key="index"
+            :label="option.label"
+            :outline="data.ltv != option.value"
+            color="primary"
+            @click="setLoan(option)"
           />
         </div>
+      </FormItem>
 
-        <q-btn
-          class="self-end q-mt-lg"
-          color="primary"
-          label="Próximo"
-          @click="onNext"
-        />
-      </q-form>
-    </div>
+      <FormItem label="VENCIMENTO">
+        <q-select v-model="dueDate" outlined dense :options="dueDateOptions" />
+      </FormItem>
+
+      <q-btn
+        :disabled="isInvalidForm"
+        class="self-end q-mt-lg"
+        color="primary"
+        label="Próximo"
+        @click="onNext"
+      />
+    </q-form>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
+import FormItem from 'components/FormItem.vue';
+import Slider from 'components/Slider.vue';
+import Loader from 'components/Loader.vue';
+import {
+  required,
+  numeric,
+  minValue,
+  maxValue,
+} from 'vuelidate/lib/validators';
+
 export default {
-  name: "Register",
+  name: 'Order',
+
+  components: { FormItem, Slider, Loader },
+
+  props: {
+    value: {
+      type: Object,
+      default: () => {},
+    },
+  },
 
   data() {
     return {
+      data: this.value,
+
       INSTALLMENT_MIN: 6,
       INSTALLMENT_MAX: 12,
 
-      form: {
-        value: "",
-        installment: 9,
-        loan: "",
-        dueDate: "dia 10 de cada mês"
-      },
+      dueDate: 'dia 10 de cada mês',
 
       dueDateOptions: [
-        "dia 05 de cada mês",
-        "dia 10 de cada mês",
-        "dia 15 de cada mês",
-        "dia 20 de cada mês"
+        'dia 05 de cada mês',
+        'dia 10 de cada mês',
+        'dia 15 de cada mês',
+        'dia 20 de cada mês',
       ],
-      loanOptions: [
-        { label: "20%", value: 0.2 },
-        { label: "30%", value: 0.3 },
-        { label: "40%", value: 0.4 },
-        { label: "50%", value: 0.5 },
-        { label: "60%", value: 0.6 }
-      ]
+
+      ltvOptions: [
+        { label: '20%', value: 0.2 },
+        { label: '25%', value: 0.25 },
+        { label: '50%', value: 0.5 },
+      ],
     };
   },
 
   computed: {
-    selectedInstallments() {
-      const { installment } = this.form;
-      return `${installment} meses`;
-    }
+    ...mapGetters('acquisition', ['isLoading']),
+
+    selectedTerm() {
+      const { term } = this.data;
+      return `${term} meses`;
+    },
+
+    isInvalidForm() {
+      return this.$v.$invalid;
+    },
   },
 
   methods: {
-    onNext() {
-      this.$emit("next");
+    ...mapActions('acquisition', ['simulate']),
+
+    async onNext() {
+      await this.simulate(this.data);
+
+      this.$emit('next');
     },
+
     setLoan({ value }) {
-      this.form.loan = value;
-    }
-  }
+      this.data.ltv = value;
+    },
+  },
+
+  validations: {
+    data: {
+      amount: {
+        required,
+        numeric,
+        minValue: minValue(500),
+        maxValue: maxValue(300_000),
+      },
+    },
+  },
 };
 </script>
 

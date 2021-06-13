@@ -2,59 +2,89 @@
   <q-page>
     <div class="row window-height">
       <div class="default-spacing stepper-container col-4">
-        <stepper v-model="step" :steps="steps" />
+        <Stepper v-model="step" :steps="steps" />
       </div>
 
-      <div class="default-spacing col-8">
-        <component :is="currentStepComponent" @next="onNext" />
-      </div>
+      <StepPanel
+        class="col-8"
+        :title="currentStep.title"
+        :subtitle="currentStep.subtitle"
+      >
+        <component
+          :is="currentStep.component"
+          v-model="form"
+          @next="onNext"
+          @finish="onFinish"
+        />
+      </StepPanel>
     </div>
   </q-page>
 </template>
 
 <script>
-import Stepper from "src/components/Stepper.vue";
-import Register from "src/pages/credit-simulation/Register.vue";
-import Order from "src/pages/credit-simulation/Order.vue";
+import Stepper from 'components/Stepper.vue';
+import StepPanel from '../../components/StepPanel.vue';
+import Register from 'pages/credit-simulation/Register.vue';
+import Order from 'pages/credit-simulation/Order.vue';
+import Result from 'pages/credit-simulation/Result.vue';
 
 export default {
-  name: "CreditSimulation",
+  name: 'CreditSimulation',
 
-  components: { Stepper, Register, Order },
+  components: { Stepper, StepPanel, Register, Order, Result },
 
   data() {
     return {
+      form: {},
+
       step: 1,
 
       steps: [
         {
           name: 1,
-          title: "Cadastro",
-          subtitle: "Dados iniciais"
+          title: 'Cadastro',
+          subtitle: 'Dados iniciais',
         },
         {
           name: 2,
-          title: "Pedido",
-          subtitle: "Detalhes do empréstimo"
+          title: 'Pedido',
+          subtitle: 'Detalhes do empréstimo',
         },
         {
           name: 3,
-          title: "Resultado",
-          subtitle: "Sua Simulação Rispar"
-        }
-      ]
+          title: 'Resultado',
+          subtitle: 'Sua Simulação Rispar',
+        },
+      ],
     };
   },
 
+  created() {
+    this.resetForm();
+  },
+
   computed: {
-    currentStepComponent() {
+    currentStep() {
       const components = Object.freeze({
-        1: Register,
-        2: Order
+        1: {
+          title: 'Cadastro',
+          subtitle: 'Informe os seus dados cadastrais',
+          component: Register,
+        },
+        2: {
+          title: 'Pedido',
+          subtitle: 'Informe os seus dados iniciais',
+          component: Order,
+        },
+        3: {
+          title: 'Resultado',
+          subtitle: 'Seu crédito Rispar',
+          component: Result,
+        },
       });
 
       return components[this.step];
-    }
+    },
   },
 
   methods: {
@@ -62,8 +92,24 @@ export default {
       if (this.step === this.steps.length) return;
 
       this.step++;
-    }
-  }
+    },
+
+    onFinish() {
+      this.resetForm();
+    },
+
+    resetForm() {
+      this.form = {
+        fullname: '',
+        email: '',
+        ltv: 0.25,
+        amount: '',
+        term: 9,
+      };
+
+      this.step = 1;
+    },
+  },
 };
 </script>
 

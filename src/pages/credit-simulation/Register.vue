@@ -1,55 +1,85 @@
 <template>
-  <div>
-    <div class="text-h5">Cadastro</div>
-    <div class="text-body2">Informe os seus dados iniciais</div>
-
-    <div class="form-container">
-      <q-form class="column">
-        <div class="row items-center q-mb-lg">
-          <div class="col-4 text-right q-pr-md">NOME COMPLETO</div>
-          <q-input v-model="form.name" class="col-8" outlined dense />
-        </div>
-
-        <div class="row items-center">
-          <div class="col-4 text-right q-pr-md">EMAIL</div>
-          <q-input
-            v-model="form.email"
-            class="col-8"
-            type="email"
-            outlined
-            dense
-          />
-        </div>
-
-        <q-btn
-          class="self-end q-mt-lg"
-          color="primary"
-          label="Próximo"
-          @click="onNext"
+  <div class="form-container">
+    <q-form class="column">
+      <FormItem label="NOME COMPLETO">
+        <q-input
+          v-model="data.fullname"
+          outlined
+          dense
+          :error="$v.data.fullname.$error"
+          error-message="Campo obrigatório"
+          @blur="$v.data.fullname.$touch()"
         />
-      </q-form>
-    </div>
+      </FormItem>
+
+      <FormItem label="EMAIL">
+        <q-input
+          v-model="data.email"
+          type="email"
+          outlined
+          dense
+          :error="$v.data.email.$error"
+          error-message="Email inválido"
+          @blur="$v.data.email.$touch()"
+        />
+      </FormItem>
+
+      <q-btn
+        :disabled="isInvalidForm"
+        class="self-end q-mt-lg"
+        color="primary"
+        label="Próximo"
+        @click="onNext"
+      />
+    </q-form>
   </div>
 </template>
 
 <script>
+import FormItem from 'components/FormItem.vue';
+import { email, required } from 'vuelidate/lib/validators';
+
 export default {
-  name: "Register",
+  name: 'Register',
+
+  components: { FormItem },
+
+  props: {
+    value: {
+      type: Object,
+      default: () => {},
+    },
+  },
 
   data() {
     return {
-      form: {
-        name: "",
-        email: ""
-      }
+      data: this.value,
     };
+  },
+
+  computed: {
+    isInvalidForm() {
+      return this.$v.$invalid;
+    },
   },
 
   methods: {
     onNext() {
-      this.$emit("next");
-    }
-  }
+      this.$emit('next');
+    },
+  },
+
+  validations: {
+    data: {
+      fullname: {
+        required,
+      },
+      email: {
+        required,
+        email,
+      },
+    },
+  },
 };
 </script>
 
