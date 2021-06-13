@@ -5,7 +5,10 @@
     </div>
 
     <q-form v-else class="column">
-      <FormItem label="VALOR DO PEDIDO" label-classes="q-mb-lg">
+      <FormItem
+        label="VALOR DO PEDIDO"
+        :label-classes="$q.screen.gt.sm ? 'q-mb-lg' : null"
+      >
         <q-input
           v-model.number="data.amount"
           type="number"
@@ -22,7 +25,10 @@
         </q-input>
       </FormItem>
 
-      <FormItem label="PARCELAS" label-classes="q-mb-xl">
+      <FormItem
+        label="PARCELAS"
+        :label-classes="$q.screen.gt.sm ? 'q-mb-xl' : null"
+      >
         <Slider
           v-model="data.term"
           :min="INSTALLMENT_MIN"
@@ -68,7 +74,7 @@ import Slider from 'components/Slider.vue';
 import Loader from 'components/Loader.vue';
 import {
   required,
-  numeric,
+  decimal,
   minValue,
   maxValue,
 } from 'vuelidate/lib/validators';
@@ -140,7 +146,7 @@ export default {
     data: {
       amount: {
         required,
-        numeric,
+        decimal,
         minValue: minValue(500),
         maxValue: maxValue(300_000),
       },

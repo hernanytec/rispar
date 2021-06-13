@@ -1,9 +1,19 @@
 <template>
-  <div class="q-pa-lg">
-    <div class="text-h5">{{ title }}</div>
-    <div class="text-body2">{{ subtitle }}</div>
+  <div>
+    <div class="q-pa-lg q-mt-xs" :class="{ row: $q.screen.lt.md }">
+      <div class="fontsize-20 text-secondary text-bold lt-md q-mr-md">
+        {{ `${currentStep}/${totalSteps}` }}
+      </div>
+      <div class="fontsize-20" :class="{ 'text-uppercase': $q.screen.lt.md }">
+        {{ title }}
+      </div>
+      <div class="gt-sm fontsize-8">{{ subtitle }}</div>
+    </div>
 
-    <div class="bg-white q-pa-sm q-mt-xl">
+    <div
+      class="bg-white q-mt-lg"
+      :class="{ 'q-pa-sm': $q.screen.gt.lg, 'q-ml-md': $q.screen.gt.sm }"
+    >
       <slot />
     </div>
   </div>
@@ -21,6 +31,14 @@ export default {
     subtitle: {
       type: String,
       default: '',
+    },
+    currentStep: {
+      type: Number,
+      default: 0,
+    },
+    totalSteps: {
+      type: Number,
+      default: 0,
     },
   },
 };

@@ -1,14 +1,17 @@
 <template>
   <q-page>
     <div class="row window-height">
-      <div class="default-spacing stepper-container col-4">
+      <div class="gt-sm default-spacing stepper-container col-4">
         <Stepper v-model="step" :steps="steps" />
       </div>
 
       <StepPanel
         class="col-8"
+        :class="{ 'col-12': $q.screen.lt.md }"
         :title="currentStep.title"
         :subtitle="currentStep.subtitle"
+        :currentStep="step"
+        :totalSteps="steps.length"
       >
         <component
           :is="currentStep.component"

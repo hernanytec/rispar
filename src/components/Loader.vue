@@ -1,7 +1,7 @@
 <template>
   <div class="loader-container">
     <img src="~assets/loader.gif" alt="loading animation" />
-    <div>{{ label }}</div>
+    <div class="fontsize-10">{{ label }}</div>
   </div>
 </template>
 

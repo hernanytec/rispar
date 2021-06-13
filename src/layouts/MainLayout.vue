@@ -1,6 +1,13 @@
 <template>
-  <q-layout view="hhh lpr lFf" class="bg-grey-2 default-padding">
-    <q-header class="bg-transparent default-padding">
+  <q-layout
+    view="hhh lpr lFf"
+    class="bg"
+    :class="{ 'default-padding': $q.screen.gt.sm }"
+  >
+    <q-header
+      class="bg-transparent"
+      :class="{ 'default-padding': $q.screen.gt.sm }"
+    >
       <default-header />
     </q-header>
 
@@ -11,16 +18,26 @@
 </template>
 
 <script>
-import DefaultHeader from "src/components/DefaultHeader.vue";
+import DefaultHeader from 'src/components/DefaultHeader.vue';
 
 export default {
   components: { DefaultHeader },
-  name: "MainLayout"
+  name: 'MainLayout',
 };
 </script>
 
 <style lang="scss" scoped>
 .default-padding {
   padding: 0 1rem;
+}
+
+body.screen--xl {
+  .default-padding {
+    padding: 1rem 5rem;
+  }
+}
+
+.bg {
+  background-color: $bg-base-color;
 }
 </style>

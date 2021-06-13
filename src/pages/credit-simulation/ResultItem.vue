@@ -1,13 +1,16 @@
 <template>
-  <div class="result-item row items-center justify-between q-pa-lg">
-    <div class="column col-5">
-      <span class="text-h6 q-mb-sm text-uppercase">{{ title }}</span>
-      <span class="text-h4">{{ value }}</span>
+  <div
+    class="result-item row items-center justify-between q-pa-lg"
+    :class="{ 'q-pa-lg': $q.screen.gt.sm }"
+  >
+    <div class="column col-7">
+      <span class="q-mb-sm text-uppercase fontsize-10">{{ title }}</span>
+      <span class="fontsize-16 text-bold">{{ value }}</span>
     </div>
 
-    <div class="col-7">
+    <div class="col-5">
       <slot>
-        {{ description }}
+        <div class="fontsize-9">{{ description }}</div>
       </slot>
     </div>
   </div>

@@ -1,7 +1,10 @@
 <template>
   <div class="form-container">
     <q-form class="column">
-      <FormItem label="NOME COMPLETO">
+      <FormItem
+        label="NOME COMPLETO"
+        :label-classes="$q.screen.gt.sm ? 'q-mb-md' : null"
+      >
         <q-input
           v-model="data.fullname"
           outlined
@@ -12,7 +15,10 @@
         />
       </FormItem>
 
-      <FormItem label="EMAIL">
+      <FormItem
+        label="EMAIL"
+        :label-classes="$q.screen.gt.sm ? 'q-mb-md' : null"
+      >
         <q-input
           v-model="data.email"
           type="email"

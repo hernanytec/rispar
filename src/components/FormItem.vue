@@ -1,6 +1,15 @@
 <template>
-  <div class="row items-center q-mb-lg">
-    <div class="col-3 text-right q-pr-md" :class="labelClasses">
+  <div class="q-my-md" :class="{ 'row items-center': $q.screen.gt.sm }">
+    <div
+      class="col-3 text-left q-pr-md"
+      :class="[
+        labelClasses,
+        {
+          'text-right': $q.screen.gt.sm,
+          'q-mb-sm': $q.screen.lt.md,
+        },
+      ]"
+    >
       {{ label }}
     </div>
 

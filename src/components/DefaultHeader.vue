@@ -1,19 +1,22 @@
 <template>
-  <div class="bg-white flex items-center q-pa-md q-mt-md">
+  <div
+    class="bg-white flex items-center q-pa-md"
+    :class="{ 'justify-between': $q.screen.lt.md, 'q-mt-md': $q.screen.gt.sm }"
+  >
     <img alt="Rispar logo" src="~assets/logo.png" class="logo" />
 
-    <q-separator vertical inset spaced="24px" size="2px" />
+    <q-separator class="gt-sm" vertical inset spaced="24px" size="2px" />
 
-    <span class="text-grey-6">TESTE FRONTEND</span>
-    <span class="text-grey-14 hello-text">
-      Olá, solicite seu crédito Rispar =)
+    <span class="text-grey-5 text-bold">TESTE FRONTEND</span>
+    <span class="gt-sm text-grey-14 hello-text">
+      Olá, solicite o seu crédito Rispar =)
     </span>
   </div>
 </template>
 
 <script>
 export default {
-  name: "DefaultHeader"
+  name: 'DefaultHeader',
 };
 </script>
 
@@ -26,5 +29,12 @@ export default {
 .hello-text {
   font-weight: bold;
   margin-left: 120px;
+}
+
+body.screen--xs {
+  .logo {
+    height: auto;
+    max-width: 150px;
+  }
 }
 </style>
