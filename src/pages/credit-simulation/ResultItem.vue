@@ -4,7 +4,7 @@
     :class="{ 'q-pa-lg': $q.screen.gt.sm, 'q-mx-xl': $q.screen.gt.sm }"
   >
     <div class="column col-7">
-      <span class="q-mb-sm text-uppercase fontsize-10">{{ title }}</span>
+      <span class="q-mb-xs text-uppercase fontsize-10">{{ title }}</span>
       <span class="fontsize-16 text-bold">
         {{ value }}
 

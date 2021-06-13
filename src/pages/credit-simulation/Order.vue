@@ -9,20 +9,16 @@
         label="VALOR DO PEDIDO"
         :label-classes="$q.screen.gt.sm ? 'q-mb-lg' : null"
       >
-        <q-input
-          v-model.number="data.amount"
-          type="number"
-          bottom-slots
+        <ImputMoney
+          v-model="data.amount"
           outlined
           dense
+          bottom-slots
+          hint="Valores entre R$ 500 e R$ 300.000"
           :error="$v.data.amount.$error"
-          error-message="Deve ter um valor entre 500 e 300.000"
+          error-message="Deve receber um valor entre 500 e 300.000"
           @blur="$v.data.amount.$touch()"
-        >
-          <template v-slot:hint>
-            <div class="text-right">Valores entre R$ 500 e R$ 300.000</div>
-          </template>
-        </q-input>
+        />
       </FormItem>
 
       <FormItem
@@ -72,6 +68,7 @@ import { mapGetters, mapActions } from 'vuex';
 import FormItem from 'components/FormItem.vue';
 import Slider from 'components/Slider.vue';
 import Loader from 'components/Loader.vue';
+import ImputMoney from 'components/ImputMoney.vue';
 import {
   required,
   decimal,
@@ -82,7 +79,7 @@ import {
 export default {
   name: 'Order',
 
-  components: { FormItem, Slider, Loader },
+  components: { FormItem, Slider, Loader, ImputMoney },
 
   props: {
     value: {
@@ -109,7 +106,7 @@ export default {
 
       ltvOptions: [
         { label: '20%', value: 0.2 },
-        { label: '25%', value: 0.25 },
+        { label: '35%', value: 0.35 },
         { label: '50%', value: 0.5 },
       ],
     };

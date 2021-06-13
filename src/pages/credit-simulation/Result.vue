@@ -38,7 +38,7 @@
       :value="`${simulation.interest_rate}% a.m`"
     >
       <div class="column justify-center">
-        <span class="q-mb-sm fontsize-10">IOF</span>
+        <span class="q-mb-xs fontsize-10">IOF</span>
         <span class="fontsize-16 text-bold">
           ZERO
           <sup class="fontsize-8 text-bold text-overline">(4)</sup>
