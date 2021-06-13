@@ -5,7 +5,7 @@
   >
     <img alt="Rispar logo" src="~assets/logo.png" class="logo" />
 
-    <q-separator class="gt-sm" vertical inset spaced="24px" size="2px" />
+    <span class="gt-sm text-grey-5 text-bold q-px-md">|</span>
 
     <span class="text-grey-5 text-bold">TESTE FRONTEND</span>
     <span class="gt-sm text-grey-14 hello-text">

@@ -1,7 +1,7 @@
 <template>
   <div
     class="result-item row items-center justify-between q-pa-lg"
-    :class="{ 'q-pa-lg': $q.screen.gt.sm }"
+    :class="{ 'q-pa-lg': $q.screen.gt.sm, 'q-mx-xl': $q.screen.gt.sm }"
   >
     <div class="column col-7">
       <span class="q-mb-sm text-uppercase fontsize-10">{{ title }}</span>

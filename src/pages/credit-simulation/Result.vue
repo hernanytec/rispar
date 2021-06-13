@@ -38,7 +38,7 @@
     </ResultItem>
 
     <q-btn
-      class="self-center q-my-lg q-px-xl"
+      class="self-center q-my-xl q-px-xl"
       color="secondary"
       unelevated
       label="Nova simulação"

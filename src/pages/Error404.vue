@@ -1,13 +1,11 @@
 <template>
-  <div class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center">
-    <div>
-      <div style="font-size: 30vh">
-        404
-      </div>
+  <div
+    class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center"
+  >
+    <div class="column items-center">
+      <div style="font-size: 30vh">404</div>
 
-      <div class="text-h2" style="opacity:.4">
-        Oops. Nothing here...
-      </div>
+      <img src="~assets/pocoyo.png" width="300px" />
 
       <q-btn
         class="q-mt-xl"
@@ -15,7 +13,7 @@
         text-color="blue"
         unelevated
         to="/"
-        label="Go Home"
+        label="Volta mininu"
         no-caps
       />
     </div>
@@ -24,6 +22,6 @@
 
 <script>
 export default {
-  name: 'Error404'
-}
+  name: 'Error404',
+};
 </script>

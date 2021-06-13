@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="q-pa-lg q-mt-xs" :class="{ row: $q.screen.lt.md }">
+    <div
+      class="q-pa-lg"
+      :class="{ row: $q.screen.lt.md, 'q-mt-lg': $q.screen.lt.md }"
+    >
       <div class="fontsize-20 text-secondary text-bold lt-md q-mr-md">
         {{ `${currentStep}/${totalSteps}` }}
       </div>
