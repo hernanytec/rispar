@@ -1,1 +1,16 @@
 // app global css in SCSS form
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+@mixin fluid-font-size($minimumSize: 12, $maximumSize: 36, $minimumViewportWidth: 300, $maximumViewportWidth: 1600){
+  font-size: calc(#{$minimumSize}px + (#{$maximumSize} - #{$minimumSize}) * ((100vw - #{$minimumViewportWidth}px) / (#{$maximumViewportWidth} - #{$minimumViewportWidth}))) !important;
+}
+
+@for $num from 8 through 28 {
+  .fontsize-#{$num}{
+    @include fluid-font-size(#{$num}, (#{$num * 2 + 2}), 300, 1800);
+  }
+}
