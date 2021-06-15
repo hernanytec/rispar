@@ -54,7 +54,7 @@
 
       <q-btn
         :disabled="isInvalidForm"
-        class="self-end q-mt-lg"
+        class="self-end"
         color="primary"
         label="Próximo"
         @click="onNext"
@@ -105,9 +105,9 @@ export default {
       ],
 
       ltvOptions: [
-        { label: '20%', value: 0.2 },
-        { label: '35%', value: 0.35 },
-        { label: '50%', value: 0.5 },
+        { label: '20%', value: 20 },
+        { label: '35%', value: 35 },
+        { label: '50%', value: 50 },
       ],
     };
   },

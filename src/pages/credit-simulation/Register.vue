@@ -32,7 +32,7 @@
 
       <q-btn
         :disabled="isInvalidForm"
-        class="self-end q-mt-lg"
+        class="self-end"
         color="primary"
         label="Próximo"
         @click="onNext"

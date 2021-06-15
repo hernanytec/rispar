@@ -111,7 +111,7 @@ export default {
       this.form = {
         fullname: '',
         email: '',
-        ltv: 0.35,
+        ltv: 35,
         amount: '',
         term: 9,
       };

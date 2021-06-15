@@ -38,7 +38,7 @@
 
       <ResultItem
         title="TX plataforma"
-        :value="`${simulation.interest_rate}% a.m`"
+        :value="txPlatform | currency(...defaultCurrencyProps)"
       >
         <div class="column justify-center">
           <span class="q-mb-xs fontsize-10">IOF</span>
@@ -134,6 +134,12 @@ export default {
 
   computed: {
     ...mapGetters('acquisition', ['simulation']),
+
+    txPlatform() {
+      return currency(this.simulation.contract_value).subtract(
+        this.simulation.net_value
+      );
+    },
   },
 
   methods: {

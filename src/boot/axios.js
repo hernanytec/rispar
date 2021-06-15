@@ -3,13 +3,7 @@ import axios from "axios";
 
 Vue.prototype.$axios = axios;
 
-const api = axios.create({
-  baseURL: "https://api.rispar.dev",
-  headers: {
-    "content-type": "application/json",
-    "access-control-allow-origin": "*"
-  }
-});
+const api = axios.create({ baseURL: "https://api.rispar.dev" });
 
 Vue.prototype.$api = api;
 
